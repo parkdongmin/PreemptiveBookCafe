@@ -11,6 +11,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import kotlinx.android.synthetic.main.app_login.*
+import org.json.JSONObject
+import org.json.JSONTokener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,13 +47,22 @@ class AppLogIn : AppCompatActivity() {
             val user = LoginRequest(idStr.toLong(), pwStr)
             service.login(user).enqueue(object :Callback<Object>{
                 override fun onResponse(call: Call<Object>, response: Response<Object>) {
+                    val result = response.body()
                     if(response.code()==400){
                         //val jsonObject = JSONObject(response.errorBody().toString());
                         Log.d("에러 ", "${response.errorBody()?.string()!!}")
                     }
                     else{
                         Log.d("로그인" , "${response.raw()}")
-                        Log.d("로그인" , "${response.body()}")
+                        Log.d("로그인" , "${result}")
+                        val jsonObject = JSONTokener(response.body().toString()).nextValue() as JSONObject
+                        val RefreshToken = jsonObject.getString("RefreshToken")
+                        val AccessToken = jsonObject.getString("AccessToken")
+                        MyApplication.prefs.setString("RefreshToken", "${RefreshToken}")
+                        MyApplication.prefs.setString("AccessToken", "${AccessToken}")
+                        Log.d("RefreshToken", "${MyApplication.prefs.getString("RefreshToken", "")}")
+                        Log.d("AccessToken", "${MyApplication.prefs.getString("AccessToken", "")}")
+                        mainLink()
                     }
                 }
 
@@ -66,6 +77,12 @@ class AppLogIn : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+    fun mainLink(){
+        var intent = Intent(this, AppMain::class.java) //다음 화면 이동을 위한 intent 객체 생성
+        intent.putExtra("id",mainNumTextBox.text.toString())
+        startActivity(intent)
+        finish()
     }
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
