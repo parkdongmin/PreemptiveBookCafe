@@ -62,7 +62,7 @@ class AppRegister : AppCompatActivity() {
             service.register(user).enqueue(object :Callback<Object>{
                 override fun onResponse(call: Call<Object>, response: Response<Object>) {
                     if(response.code()==400){
-                        //val jsonObject = JSONObject(response.errorBody().toString());
+                        val jsonObject = JSONObject(response.errorBody().toString());
                         Log.d("에러 ", "${response.errorBody()?.string()!!}")
                     }
                     else{
