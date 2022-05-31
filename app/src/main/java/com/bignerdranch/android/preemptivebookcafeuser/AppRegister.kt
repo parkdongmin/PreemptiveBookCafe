@@ -1,6 +1,7 @@
 package com.bignerdranch.android.preemptivebookcafeuser
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
@@ -62,12 +63,13 @@ class AppRegister : AppCompatActivity() {
             service.register(user).enqueue(object :Callback<Object>{
                 override fun onResponse(call: Call<Object>, response: Response<Object>) {
                     if(response.code()==400){
-                        val jsonObject = JSONObject(response.errorBody().toString());
+                        //val jsonObject = JSONObject(response.errorBody().toString());
                         Log.d("에러 ", "${response.errorBody()?.string()!!}")
                     }
                     else{
                         Log.d("회원가입" , "${response.raw()}")
                         Log.d("회원가입" , "${response.body()}")
+                        AppLogInLink()
                     }
                 }
 
@@ -81,6 +83,12 @@ class AppRegister : AppCompatActivity() {
         val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         return true
+    }
+
+    fun AppLogInLink(){
+        var intent = Intent(this, AppLogIn::class.java) //다음 화면 이동을 위한 intent 객체 생성
+        startActivity(intent)
+        finish()
     }
 }
 

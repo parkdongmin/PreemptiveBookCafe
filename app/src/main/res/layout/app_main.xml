@@ -71,12 +71,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/useRegGoBtn" />
 
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="72dp"
+        android:layout_height="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="17dp"
+        android:entries="@array/logout">
+    </Spinner>
     <TextView
         android:id="@+id/idText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="13dp"
-        android:layout_marginEnd="17dp"
+        android:layout_marginEnd="5dp"
         android:text="201701742"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

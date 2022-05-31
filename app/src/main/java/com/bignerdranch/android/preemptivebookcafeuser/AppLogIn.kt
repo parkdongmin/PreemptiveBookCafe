@@ -34,12 +34,28 @@ class AppLogIn : AppCompatActivity() {
         mainPwTextBox = findViewById(R.id.mainPwTextBox)
         loginBtn = findViewById(R.id.loginBtn)
 
+
+
         val retrofit = Retrofit.Builder()
             .baseUrl("http://3.36.156.88:8080")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val service = retrofit.create(SignService::class.java)
+
+        val RefreshToken = MyApplication.prefs.getString("RefreshToken", "")
+        val AccessToken = MyApplication.prefs.getString("AccessToken", "")
+        val idStrGet = MyApplication.prefs.getString("idStr", "")
+
+
+        if( RefreshToken != "" && AccessToken != ""){
+            var intent = Intent(this, AppMain::class.java) //다음 화면 이동을 위한 intent 객체 생성
+            Log.e("RefreshToken", "${MyApplication.prefs.getString("RefreshToken", "")}")
+            Log.e("AccessToken", "${MyApplication.prefs.getString("AccessToken", "")}")
+            intent.putExtra("id",idStrGet)
+            startActivity(intent)
+            finish()
+        }
 
         loginBtn.setOnClickListener {
             val idStr = mainNumTextBox.text.toString()
@@ -60,8 +76,10 @@ class AppLogIn : AppCompatActivity() {
                         val accessToken = jsonObject.getString("AccessToken")
                         MyApplication.prefs.setString("RefreshToken", "${refreshToken}")
                         MyApplication.prefs.setString("AccessToken", "${accessToken}")
+                        MyApplication.prefs.setString("idStr", "${idStr}")
                         Log.d("RefreshToken", "${MyApplication.prefs.getString("RefreshToken", "")}")
                         Log.d("AccessToken", "${MyApplication.prefs.getString("AccessToken", "")}")
+                        Log.d("idStr", "${MyApplication.prefs.getString("idStr", "")}")
                         mainLink()
                     }
                 }
