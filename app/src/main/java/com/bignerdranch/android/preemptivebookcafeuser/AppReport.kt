@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.widget.Switch
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -13,9 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.app_report.*
-import org.json.JSONArray
-import org.json.JSONObject
-import org.json.JSONTokener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +30,11 @@ class AppReport : AppCompatActivity(){
         var id = 0
         var cnt = 0
         var choiceDeskArray = Array<Int>(66) { 1 }
+
+
+        var intentData = intent
+        var idGet = intentData.getStringExtra("id")
+        idText.setText(idGet)
 
         val gsonBuilder = GsonBuilder()
         gsonBuilder.registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeDeserializer())
@@ -1731,6 +1732,7 @@ class AppReport : AppCompatActivity(){
                         if(response.code()==400){
                             //val jsonObject = JSONObject(response.errorBody().toString());
                             Log.d("에러 ", "${response.errorBody()?.string()!!}")
+                            reportFailLink()
                         }
                         else{
                             Log.d("좌석신고" , "${response.raw()}")
@@ -1741,6 +1743,7 @@ class AppReport : AppCompatActivity(){
 
                     override fun onFailure(call: Call<Object>, t: Throwable) {
                         Log.e("좌석신고", "${t.localizedMessage}")
+                        reportFailLink()
                     }
                 })
             }
@@ -1754,9 +1757,21 @@ class AppReport : AppCompatActivity(){
             mBuilder.show()
         }
 
+        topBackSpace.setOnClickListener {
+            var intent = Intent(this, AppLogIn::class.java) //다음 화면 이동을 위한 intent 객체 생성
+            startActivity(intent)
+            finish()
+        }
+
     }
     fun reportSuccessLink(){
         var intent = Intent(this, AppReportSuccess::class.java) //다음 화면 이동을 위한 intent 객체 생성
+        startActivity(intent)
+        finish()
+    }
+
+    fun reportFailLink(){
+        var intent = Intent(this, AppReportFail::class.java) //다음 화면 이동을 위한 intent 객체 생성
         startActivity(intent)
         finish()
     }
@@ -1766,9 +1781,6 @@ class AppReport : AppCompatActivity(){
 //@Headers("content-type: application/json", "Authorization: Bearer" + )
 
 interface ReportService{
-    /*public open val accessToken: String
-        get() = MyApplication.prefs.getString("AccessToken", "")*/
-
     @Headers("accept: application/json", "content-type: application/json")
     @POST("/seats/report")
     fun report(

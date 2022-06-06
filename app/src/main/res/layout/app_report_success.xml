@@ -11,10 +11,44 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@drawable/group01"
+        android:background="@drawable/topbackimage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/topBackSpace"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/backspace"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/topBackText" />
+
+    <TextView
+        android:id="@+id/topBackText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/roboto_bold_italic"
+        android:text="Preemptive Book Cafe"
+        android:textColor="#C0751E"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toStartOf="@+id/idText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/idText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="000000000"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/topBackText" />
 
     <TextView
         android:id="@+id/textView"

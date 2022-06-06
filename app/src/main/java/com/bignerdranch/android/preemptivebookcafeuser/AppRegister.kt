@@ -59,7 +59,8 @@ class AppRegister : AppCompatActivity() {
             val idStr = registerNumTextBox.text.toString()
             val pwStr = registerPwTextBox.text.toString()
             val emailStr = registerEmailTextBox.text.toString()
-            val user = RegisterRequest(idStr.toLong(), pwStr, emailStr)
+            val fbToken = MyApplication.prefs.getString("fbToken", "")
+            val user = RegisterRequest(idStr.toLong(), pwStr, emailStr, fbToken)
             service.register(user).enqueue(object :Callback<Object>{
                 override fun onResponse(call: Call<Object>, response: Response<Object>) {
                     if(response.code()==400){
@@ -100,7 +101,7 @@ interface RegisterService{
         /*
         @Field("classNo") registerNumTextBox:String,
         @Field("password") registerPwTextBox:String,
-        @Field("email") registerEmailTextBox:String*/
+        @Field("email") registerEmailTextBox:String */
         @Body User :RegisterRequest
     ) : Call<Object>
 }

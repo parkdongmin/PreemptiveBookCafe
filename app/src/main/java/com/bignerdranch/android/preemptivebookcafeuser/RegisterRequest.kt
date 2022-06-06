@@ -5,10 +5,11 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import java.time.LocalDateTime
 
-public class RegisterRequest constructor(classNo : Long, password : String, email : String) {
+public class RegisterRequest constructor(classNo : Long, password : String, email : String, token : String) {
 
     val classNo = classNo
     val password = password
     val email = email
+    val token = token
 
 }

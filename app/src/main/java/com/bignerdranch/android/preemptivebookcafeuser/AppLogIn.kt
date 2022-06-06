@@ -19,6 +19,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+import java.util.*
 
 class AppLogIn : AppCompatActivity() {
 
@@ -34,8 +35,6 @@ class AppLogIn : AppCompatActivity() {
         mainPwTextBox = findViewById(R.id.mainPwTextBox)
         loginBtn = findViewById(R.id.loginBtn)
 
-
-
         val retrofit = Retrofit.Builder()
             .baseUrl("http://3.36.156.88:8080")
             .addConverterFactory(GsonConverterFactory.create())
@@ -46,6 +45,7 @@ class AppLogIn : AppCompatActivity() {
         val RefreshToken = MyApplication.prefs.getString("RefreshToken", "")
         val AccessToken = MyApplication.prefs.getString("AccessToken", "")
         val idStrGet = MyApplication.prefs.getString("idStr", "")
+
 
 
         if( RefreshToken != "" && AccessToken != ""){
@@ -120,3 +120,4 @@ interface SignService {
         @Body User :LoginRequest
     ) : Call<Object>
 }
+
