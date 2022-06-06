@@ -25,7 +25,8 @@ class AppReportFail : AppCompatActivity() {
         }
 
         topBackSpace.setOnClickListener {
-            var intent = Intent(this, AppLogIn::class.java) //다음 화면 이동을 위한 intent 객체 생성
+            var intent = Intent(this, AppMain::class.java) //다음 화면 이동을 위한 intent 객체 생성
+            intent.putExtra("id",id)
             startActivity(intent)
             finish()
         }

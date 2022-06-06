@@ -1,4 +1,4 @@
 package com.bignerdranch.android.preemptivebookcafeuser
 
-class UsingHistoryData(val name: String, val tel: String, val num: String ) {
+class UsingHistoryData(val date: String, val time: String, val num: String ) {
 }

@@ -17,6 +17,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class AppDeskUsingHistory : AppCompatActivity() {
@@ -51,16 +52,26 @@ class AppDeskUsingHistory : AppCompatActivity() {
 
                     Log.d("로그현황" , "${response.raw()}")
                     Log.d("로그현황" , "${response.body()}")
+
                     var data : Array<LogResponse>? = response?.body()
+                    var datePattern = DateTimeFormatter.ofPattern("yyyy.MM. dd.")
+
                     for ( i in data!!){
                         //Log.d("data" , data[0].toString())
                         Log.d("data" , i.toString())
                     }
                     for(i in data.indices){
-                        var usingHdate = data?.get(i)?.seatId.toString()
-                        var usingHday = data?.get(i)?.logTime.toString()
+                        var DateTimeFormatter = data?.get(i)?.logTime?.format(datePattern)
+                        var usingDayWeek = data?.get(i)?.logTime.dayOfWeek.toString().chunked(3)
+                        var usingSumDateData = DateTimeFormatter + usingDayWeek[0]
+
+                        var usingHour = data?.get(i)?.logTime.hour.toString()
+                        var usingMinute = data?.get(i)?.logTime.minute.toString()
+                        var usingSumTimeData = usingHour + ":" + usingMinute
+
                         var usingHnum = data?.get(i)?.id.toString()
-                        var dataOb = UsingHistoryData(usingHdate, usingHday, usingHnum)
+
+                        var dataOb = UsingHistoryData(usingSumDateData, usingSumTimeData, usingHnum)
                         UsingHistoryDataList.add(i,dataOb)
                     }
                     //data?.get(0)?.
@@ -78,7 +89,8 @@ class AppDeskUsingHistory : AppCompatActivity() {
         idText.setText(id.toString())
 
         topBackSpace.setOnClickListener {
-            var intent = Intent(this, AppLogIn::class.java) //다음 화면 이동을 위한 intent 객체 생성
+            var intent = Intent(this, AppMain::class.java) //다음 화면 이동을 위한 intent 객체 생성
+            intent.putExtra("id",id)
             startActivity(intent)
             finish()
         }

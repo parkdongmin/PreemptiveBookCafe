@@ -1,27 +1,28 @@
 package com.bignerdranch.android.preemptivebookcafeuser
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.app_desk_report_history.*
 import kotlinx.android.synthetic.main.app_desk_report_history.idText
 import kotlinx.android.synthetic.main.app_desk_report_history.topBackSpace
 import kotlinx.android.synthetic.main.app_desk_report_history.useViewBtn
-import kotlinx.android.synthetic.main.app_desk_using_history.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Header
+import retrofit2.http.*
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class AppDeskReportHistory : AppCompatActivity() {
-
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.app_desk_report_history)
@@ -52,15 +53,23 @@ class AppDeskReportHistory : AppCompatActivity() {
                     Log.d("로그현황" , "${response.raw()}")
                     Log.d("로그현황" , "${response.body()}")
                     var data : Array<LogResponse>? = response?.body()
+                    var datePattern = DateTimeFormatter.ofPattern("yyyy.MM.dd.")
                     for ( i in data!!){
                         //Log.d("data" , data[0].toString())
                         Log.d("data" , i.toString())
                     }
                     for(i in data.indices){
-                        var reportDate = data?.get(i)?.seatId.toString()
-                        var reportDay = data?.get(i)?.logTime.toString()
-                        var reportNum = data?.get(i)?.id.toString()
-                        var dataOb = ReportHistoryData(reportDate, reportDay, reportNum)
+                        var DateTimeFormatter = data?.get(i)?.logTime?.format(datePattern)
+                        var reportDayWeek = data?.get(i)?.logTime.dayOfWeek.toString().chunked(3)
+                        var reportSumDateData = DateTimeFormatter + reportDayWeek[0]
+
+                        var reportHour = data?.get(i)?.logTime.hour.toString()
+                        var reportMinute = data?.get(i)?.logTime.minute.toString()
+                        var reportSumTimeData = reportHour + ":" + reportMinute
+
+                        var reportHnum = data?.get(i)?.id.toString()
+
+                        var dataOb = ReportHistoryData(reportSumDateData,reportSumTimeData,reportHnum)
                         ReportHistoryDataList.add(i,dataOb)
                     }
                     //data?.get(0)?.
@@ -78,7 +87,8 @@ class AppDeskReportHistory : AppCompatActivity() {
         idText.setText(id.toString())
 
         topBackSpace.setOnClickListener {
-            var intent = Intent(this, AppLogIn::class.java) //다음 화면 이동을 위한 intent 객체 생성
+            var intent = Intent(this, AppMain::class.java) //다음 화면 이동을 위한 intent 객체 생성
+            intent.putExtra("id",id)
             startActivity(intent)
             finish()
         }

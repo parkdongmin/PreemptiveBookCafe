@@ -8,8 +8,8 @@ class ReportHistoryViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     var view : View = v
 
     fun reportbind(item: ReportHistoryData) {
-        view.reportDay.text = item.name
-        view.reportDate.text = item.tel
+        view.reportDay.text = item.date
+        view.reportDate.text = item.time
         view.reportDeskNum.text = item.num
     }
 }

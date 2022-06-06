@@ -9,8 +9,8 @@ class UsingHistoryViewHolder(v: View) : RecyclerView.ViewHolder(v) {
     var view : View = v
 
     fun bind(item: UsingHistoryData) {
-        view.historyDay.text = item.name
-        view.historyDate.text = item.tel
+        view.historyDay.text = item.date
+        view.historyDate.text = item.time
         view.historyDeskNum.text = item.num
     }
 }

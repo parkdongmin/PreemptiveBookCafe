@@ -44,17 +44,6 @@ class AppRegister : AppCompatActivity() {
 
         val service = retrofit.create(RegisterService::class.java)
 
-/*
-
-        val call: Call<*> = userAPIInterface.getUserData()
-        call.enqueue(object : Callback<Any?> {
-            fun onResponse(call: Call<*>?, response: Response<*>) {
-                Log.e(TAG, "body: " + Gson().toJson(response.body()))
-            }
-
-            fun onFailure(call: Call<*>?, t: Throwable) {}
-        })
-*/
         registerBtn.setOnClickListener {
             val idStr = registerNumTextBox.text.toString()
             val pwStr = registerPwTextBox.text.toString()
@@ -64,8 +53,10 @@ class AppRegister : AppCompatActivity() {
             service.register(user).enqueue(object :Callback<Object>{
                 override fun onResponse(call: Call<Object>, response: Response<Object>) {
                     if(response.code()==400){
-                        //val jsonObject = JSONObject(response.errorBody().toString());
                         Log.d("에러 ", "${response.errorBody()?.string()!!}")
+                        Toast.makeText(applicationContext, "다시 한번 확인해주세요.", Toast.LENGTH_SHORT).show()
+                        AppRegisterFailLink()
+
                     }
                     else{
                         Log.d("회원가입" , "${response.raw()}")
@@ -76,6 +67,7 @@ class AppRegister : AppCompatActivity() {
 
                 override fun onFailure(call: Call<Object>, t: Throwable) {
                     Log.e("회원가입", "${t.localizedMessage}")
+                    AppRegisterFailLink()
                 }
             })
         }
@@ -88,6 +80,12 @@ class AppRegister : AppCompatActivity() {
 
     fun AppLogInLink(){
         var intent = Intent(this, AppLogIn::class.java) //다음 화면 이동을 위한 intent 객체 생성
+        startActivity(intent)
+        finish()
+    }
+
+    fun AppRegisterFailLink(){
+        var intent = Intent(this, AppRegister::class.java) //다음 화면 이동을 위한 intent 객체 생성
         startActivity(intent)
         finish()
     }
