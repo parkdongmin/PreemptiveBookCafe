@@ -69,7 +69,7 @@ class AppDeskUsingHistory : AppCompatActivity() {
                         var usingMinute = data?.get(i)?.logTime.minute.toString()
                         var usingSumTimeData = usingHour + ":" + usingMinute
 
-                        var usingHnum = data?.get(i)?.id.toString()
+                        var usingHnum = data?.get(i)?.seatId.toString()
 
                         var dataOb = UsingHistoryData(usingSumDateData, usingSumTimeData, usingHnum)
                         UsingHistoryDataList.add(i,dataOb)

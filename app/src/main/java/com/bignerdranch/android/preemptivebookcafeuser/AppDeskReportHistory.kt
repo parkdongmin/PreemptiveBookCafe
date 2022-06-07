@@ -67,7 +67,7 @@ class AppDeskReportHistory : AppCompatActivity() {
                         var reportMinute = data?.get(i)?.logTime.minute.toString()
                         var reportSumTimeData = reportHour + ":" + reportMinute
 
-                        var reportHnum = data?.get(i)?.id.toString()
+                        var reportHnum = data?.get(i)?.seatId.toString()
 
                         var dataOb = ReportHistoryData(reportSumDateData,reportSumTimeData,reportHnum)
                         ReportHistoryDataList.add(i,dataOb)

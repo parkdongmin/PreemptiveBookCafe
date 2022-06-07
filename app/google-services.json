@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "850401918961",
+    "project_id": "preemptivebookcafe",
+    "storage_bucket": "preemptivebookcafe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850401918961:android:0d7be08a0e821f28a00e50",
+        "android_client_info": {
+          "package_name": "com.bignerdranch.android.preemptivebookcafeuser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "850401918961-nhl8fn2f09p1sphg18rne3m62sbvglnh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_DhJlFPY5HYAcxAC1I8bNApscqguDg60"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "850401918961-nhl8fn2f09p1sphg18rne3m62sbvglnh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:850401918961:android:4d95692c83c36139a00e50",
+        "android_client_info": {
+          "package_name": "com.bignerdranch.android.premmptivebookcafeuser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "850401918961-nhl8fn2f09p1sphg18rne3m62sbvglnh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_DhJlFPY5HYAcxAC1I8bNApscqguDg60"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "850401918961-nhl8fn2f09p1sphg18rne3m62sbvglnh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
