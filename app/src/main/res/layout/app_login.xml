@@ -111,19 +111,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
-    <TextView
-        android:layout_width="130dp"
-        android:layout_height="25dp"
-        android:background="@drawable/group03"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="15dp"
-        android:text="비밀번호 찾기"
-        android:textColor="@color/white"
-        android:paddingTop="5dp"
-        android:textAlignment="center"
-        android:textSize="11dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/joinGoBtn" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
