@@ -3,15 +3,13 @@ package com.bignerdranch.android.preemptivebookcafeuser
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.app_register.*
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,6 +41,17 @@ class AppRegister : AppCompatActivity() {
             .build()
 
         val service = retrofit.create(RegisterService::class.java)
+
+        checkBoxR.setOnCheckedChangeListener{compoundButton, b ->
+            if(b)
+                registerPwTextBox.inputType = (InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD)
+            else
+                registerPwTextBox.inputType = (InputType.TYPE_CLASS_TEXT)
+        }
+
+        topBackSpace.setOnClickListener {
+            AppLogInLink()
+        }
 
         registerBtn.setOnClickListener {
             val idStr = registerNumTextBox.text.toString()
