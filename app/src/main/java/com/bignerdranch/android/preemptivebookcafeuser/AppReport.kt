@@ -1735,6 +1735,7 @@ class AppReport : AppCompatActivity(){
                             reportFailLink()
                         }
                         else{
+
                             Log.d("좌석신고" , "${response.raw()}")
                             Log.d("좌석신고" , "${response.body()}")
                             reportSuccessLink()

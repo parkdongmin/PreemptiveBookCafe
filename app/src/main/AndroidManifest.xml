@@ -13,14 +13,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AppReportFail" android:exported="true"></activity>
-        <activity android:name=".AppReportSuccess" android:exported="true"></activity>
-        <activity android:name=".AppReport" android:exported="true"></activity>
-        <activity android:name=".AppDeskReportHistory" android:exported="true"></activity>
-        <activity android:name=".AppDeskUsingHistory" android:exported="true"></activity>
-        <activity android:name=".AppMain" android:exported="true"></activity>
-        <activity android:name=".AppRegister" android:exported="true"></activity>
-        <activity android:name=".MainActivity" android:exported="true"></activity>
+        <activity
+            android:name=".AppLoginFail"
+            android:exported="true" />
+        <activity
+            android:name=".AppReportFail"
+            android:exported="true" />
+        <activity
+            android:name=".AppReportSuccess"
+            android:exported="true" />
+        <activity
+            android:name=".AppReport"
+            android:exported="true" />
+        <activity
+            android:name=".AppDeskReportHistory"
+            android:exported="true" />
+        <activity
+            android:name=".AppDeskUsingHistory"
+            android:exported="true" />
+        <activity
+            android:name=".AppMain"
+            android:exported="true" />
+        <activity
+            android:name=".AppRegister"
+            android:exported="true" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
         <activity
             android:name=".AppLogIn"
             android:exported="true">
@@ -31,10 +50,11 @@
             </intent-filter>
         </activity>
 
-        <!-- [START FCM 설정 추가] -->
-        <service android:name=".MyFirebaseMessagingService" android:exported="true">
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 

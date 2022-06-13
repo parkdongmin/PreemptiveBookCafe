@@ -43,6 +43,11 @@ class AppLogIn : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
+        val services = retrofit.create(PostToken::class.java)
+
+        val fcmToken = MyApplication.prefs.getString("fcmToken", "")
+        Log.d("토큰 출력", "{$fcmToken}")
+
         val service = retrofit.create(SignService::class.java)
 
         val RefreshToken = MyApplication.prefs.getString("RefreshToken", "")
@@ -58,6 +63,7 @@ class AppLogIn : AppCompatActivity() {
                 val result = response.body()
                 if(response.code()==400){
                     Log.d("에러", "${response.errorBody()?.string()!!}")
+                    //refresh Token Post
                     service.refreshTokenPost(NewRefreshToken).enqueue(object :Callback<Object>{
                         override fun onResponse(call: Call<Object>, response: Response<Object>) {
                             val result = response.body()
@@ -98,7 +104,7 @@ class AppLogIn : AppCompatActivity() {
         loginBtn.setOnClickListener {
             val idStr = mainNumTextBox.text.toString()
             val pwStr = mainPwTextBox.text.toString()
-            val user = LoginRequest(idStr.toLong(), pwStr)
+            val user = LoginRequest(idStr.toLong(), pwStr, fcmToken)
             service.login(user).enqueue(object :Callback<Object>{
                 override fun onResponse(call: Call<Object>, response: Response<Object>) {
                     val result = response.body()
@@ -123,6 +129,7 @@ class AppLogIn : AppCompatActivity() {
                 }
                 override fun onFailure(call: Call<Object>, t: Throwable) {
                     Log.e("로그인", "${t.localizedMessage}")
+                    loginFailLink()
                 }
             })
         }
@@ -136,6 +143,12 @@ class AppLogIn : AppCompatActivity() {
     fun mainLink(){
         var intent = Intent(this, AppMain::class.java) //다음 화면 이동을 위한 intent 객체 생성
         intent.putExtra("id",mainNumTextBox.text.toString())
+        startActivity(intent)
+        finish()
+    }
+
+    fun loginFailLink(){
+        var intent = Intent(this, AppLoginFail::class.java) //다음 화면 이동을 위한 intent 객체 생성
         startActivity(intent)
         finish()
     }
@@ -174,4 +187,6 @@ interface SignService {
         @Header("Authorization") RefreshToken : String?
     ) : Call<Object>
 }
+
+
 
