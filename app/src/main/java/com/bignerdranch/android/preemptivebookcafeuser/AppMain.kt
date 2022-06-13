@@ -31,22 +31,20 @@ class AppMain : AppCompatActivity() {
         var id = intentData.getStringExtra("id")
         idText.setText(id.toString() + " ▼ ")
 
-        idText.setOnClickListener {
-            val data:Array<String> = resources.getStringArray(R.array.logout)
-            spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, data)
+        val data:Array<String> = resources.getStringArray(R.array.logout)
+        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, data)
 
-            spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                    println(id)
-                }
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                println(id)
+            }
 
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                    if(data.get(p2) == "로그아웃"){
-                        MyApplication.prefs.setString("RefreshToken", "")
-                        MyApplication.prefs.setString("AccessToken", "")
-                        MyApplication.prefs.setString("idStr", "")
-                        AppLogInLink()
-                    }
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                if(data.get(p2) == "로그아웃"){
+                    MyApplication.prefs.setString("RefreshToken", "")
+                    MyApplication.prefs.setString("AccessToken", "")
+                    MyApplication.prefs.setString("idStr", "")
+                    AppLogInLink()
                 }
             }
         }

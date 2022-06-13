@@ -43,8 +43,6 @@ class AppLogIn : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
-        val services = retrofit.create(PostToken::class.java)
-
         val fcmToken = MyApplication.prefs.getString("fcmToken", "")
         Log.d("토큰 출력", "{$fcmToken}")
 
